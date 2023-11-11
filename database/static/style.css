@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,800&display=swap');
+
+:root {
+  --base-color: #08252F;
+  --font-size: 13px;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font-size: var(--font-size);
+  font-family: 'Rubik', sans-serif;
+}
+html {
+  height: 100%;
+  width: 100%;
+}
+body {
+  direction: rtl;
+  height: 100%;
+  width: 100%;
+}
+body .page {
+  page-break-after: always;
+  width: 100%;
+  width: calc(100% - 42px); 
+  height: calc(100% - 42px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  margin: 0px;
+
+}
+body table {
+  width: 100%;
+  border-spacing: 2px;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+body table caption {
+  margin-bottom: 5px;
+}
+.title {
+  padding: 10px 15px;
+  font-weight: 800;
+  font-size: calc(var(--font-size) + 5px);
+  background: var(--base-color);
+  color:white;
+}
+
+body table tr {
+  border-bottom: 1px solid var(--base-color);
+}
+
+body table th {
+  background: var(--base-color);
+  color:white;
+  width: fit-content;
+  padding: 5px;
+  border-bottom: 2px solid var(--base-color);
+}
+
+body table td {
+  width: fit-content; 
+  padding: 5px;
+  border: 1px solid var(--base-color);
+}
+.cc td {
+  text-align: center;
+}

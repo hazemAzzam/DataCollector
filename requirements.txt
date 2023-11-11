@@ -1,0 +1,3 @@
+django
+django-weasyprint
+weasyprint==53.3

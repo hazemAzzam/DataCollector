@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <title>Document</title>
+</head>
+<body>
+  <div class="page">
+    <title>
+      وثيقه تعارف طالب احتياط
+    </title>
+    <table>
+        <caption>
+          <div class="title">
+            البيانات الشخصيه
+          </div>
+        </caption>
+        <tr>
+          <th>الاسم</th>
+          <td>{{ recruit.name }}</td>
+          
+          <th>المؤهل الدراسي</th>
+          <td>{{ recruit.education }}</td>
+      </tr>
+      <tr>
+        <th>تاريخ الميلاد</th>
+        <td>{{ recruit.date_of_birth|date:"Y-m-d" }}</td>
+        
+        <th>جهة الميلاد</th>
+        <td>{{ recruit.birth_location }}</td>
+      </tr>
+      <tr>
+        <th>الحاله الاجتماعيه</th>
+        <td>{{ recruit.marital_status }}</td>
+        
+        <th>رقم التليفون</th>
+        <td>{{ recruit.mobile_number }}</td>
+      </tr>
+      <tr>
+        <th>محل الاقامه</th>
+        <td>{{ recruit.residence }}</td>
+        
+        <th>الرقم الثلاثي</th>
+        <td style="direction: ltr; text-align:right;">{{ recruit.triple_digit }}</td>
+      </tr>
+    </table>
+    
+    <table class="cc">
+      <caption>
+        <div class="title">
+          بيانات الوالدين
+        </div>
+      </caption>
+      <tr>
+        <th rowspan="2">البيان</th>
+        <th rowspan="2">الاسم رباعي</th>
+        <th rowspan="2">الديانه</th>
+        <th rowspan="2">الجنسيه</th>
+        <th rowspan="2">الوظيفه</th>
+        <th rowspan="1" colspan="3">تاريخ الميلاد</th>
+        <th rowspan="2">محل الاقامه</th>
+      </tr>
+      <tr>
+        <th>يوم</th>
+        <th>شهر</th>
+        <th>سنه</th>
+      </tr>
+      {% for parent in recruit.parents.all %}
+      <tr>
+          <th>{{ parent.relate }}</th>
+          <td>{{ parent.name }}</td>
+          <td>{{ parent.religion }}</td>
+          <td>{{ parent.nationality }}</td>
+          <td>{{ parent.job }}</td>
+          <td>{{ parent.date_of_birth.day }}</td>
+          <td>{{ parent.date_of_birth.month }}</td>
+          <td>{{ parent.date_of_birth.year }}</td>
+          <td>{{ parent.residence }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    
+    <table class="cc">
+      <caption>
+        <div class="title">
+          بيانات الاخوه والاخوات
+        </div>
+      </caption>
+      <tr>
+        <th rowspan=2>الاسم رباعي</th>
+        <th rowspan=1 colspan=3>تاريخ الميلاد</th>
+        <th rowspan=2>الوظيفه</th>
+        <th rowspan=2>اسم الزوج او الزوجه رباعي</th>
+        <th rowspan=2>الوظيفه</th>
+        <th rowspan=2>محل الاقامه تفصيليا</th>
+      </tr>
+      <tr>
+        <th>اليوم</th>
+        <th>الشهر</th>
+        <th>السنه</th>
+      </tr>
+      {% for brother in recruit.brothers.all %}
+      <tr>
+        <td>{{ brother.name }}</td>
+        <td>{{ brother.date_of_birth.day }}</td>
+        <td>{{ brother.date_of_birth.month }}</td>
+        <td>{{ brother.date_of_birth.year }}</td>
+        <td>{{ brother.job }}</td>
+        <td>{{ brother.wife_name }}</td>
+        <td>{{ brother.wife_job }}</td>
+        <td>{{ brother.residence }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="page">
+    <table class="cc">
+        <caption>
+          <div class="title">
+            بيانات الاعمام والعمات
+          </div>
+        </caption>
+        <tr>
+            <th rowspan="2">الاسم</th>
+            <th rowspan="1" colspan="3">تاريخ الميلاد</th>
+            <th rowspan="2">السن</th>
+            <th rowspan="2">الوظيفه</th>
+            <th rowspan="2">اسم الزوج او الزوجة رباعي</th>
+            <th rowspan="2">الوظيفه</th>
+            <th rowspan="2">محل الاقامه</th>
+        </tr>
+        <tr>
+            <th>اليوم</th>
+            <th>الشهر</th>
+            <th>السنه</th>
+        </tr>
+        {% for uncle in recruit.relatives.all.father_relates %}
+        <tr>
+            <td>{{ uncle.name }}</td>
+            <td>{{ uncle.date_of_birth.day }}</td>
+            <td>{{ uncle.date_of_birth.month }}</td>
+            <td>{{ uncle.date_of_birth.year }}</td>
+            <td>{{ uncle.age }}</td>
+            <td>{{ uncle.job }}</td>
+            <td>{{ uncle.wife_name }}</td>
+            <td>{{ uncle.wife_job }}</td>
+            <td>{{ uncle.residence }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <table class="cc"> 
+      <caption>
+        <div class="title">
+          بيانات الاخوال والخالات
+        </div>
+      </caption>
+      <tr>
+          <th rowspan="2">الاسم</th>
+          <th rowspan="1" colspan="3">تاريخ الميلاد</th>
+          <th rowspan="2">السن</th>
+          <th rowspan="2">الوظيفه</th>
+          <th rowspan="2">اسم الزوج او الزوجة رباعي</th>
+          <th rowspan="2">الوظيفه</th>
+          <th rowspan="2">محل الاقامه</th>
+      </tr>
+      <tr>
+          <th>اليوم</th>
+          <th>الشهر</th>
+          <th>السنه</th>
+      </tr>
+      {% for uncle in recruit.relatives.all.mother_relates %}
+      <tr>
+          <td>{{ uncle.name }}</td>
+          <td>{{ uncle.date_of_birth.day }}</td>
+          <td>{{ uncle.date_of_birth.month }}</td>
+          <td>{{ uncle.date_of_birth.year }}</td>
+          <td>{{ uncle.age }}</td>
+          <td>{{ uncle.job }}</td>
+          <td>{{ uncle.wife_name }}</td>
+          <td>{{ uncle.wife_job }}</td>
+          <td>{{ uncle.residence }}</td>
+      </tr>
+      {% endfor %}
+  </table>
+  <div style="padding: 5px;">
+    اقر انا..............................................................بأن البيانات المدونه بالوثيقه صحيحه وتحت مسؤوليتي. 
+    <br>
+    وإنني قد تنبه علي باتباع التعليمات السابقه
+  </div>
+  </div>
+</body>
+</html>
