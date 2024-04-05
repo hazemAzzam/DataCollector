@@ -14,6 +14,12 @@ class RecruitAdmin(admin.ModelAdmin):
         'mobile_number',
     )
     fieldsets=(
+        ('Account Information', {
+            'fields': (
+                'code',
+                'password',
+            )
+        }),
         ('Personal Information', {
             'fields': (
                 ('name', 'education'),
