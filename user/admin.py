@@ -1,4 +1,6 @@
+from typing import Any
 from django.contrib import admin
+from django.db.models.query import QuerySet
 from django.http import HttpRequest
 
 from .models import *
@@ -24,5 +26,11 @@ class RecruitAdmin(admin.ModelAdmin):
     )
     actions=[generate_pdf]
 
+    def get_queryset(self, request: HttpRequest) -> QuerySet[Any]:
+        if (request.user.is_superuser):
+            return super().get_queryset(request)
+        else:
+            return Recruit.objects.filter(code=request.user.code)
+
     def has_add_permission(self, request: HttpRequest) -> bool:
-        return False
+        return request.user.is_superuser
