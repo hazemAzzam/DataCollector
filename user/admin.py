@@ -19,6 +19,7 @@ class RecruitAdmin(admin.ModelAdmin):
                 'code',
                 'password',
                 'is_staff',
+                'user_permissions',
             )
         }),
         ('Personal Information', {

@@ -33,20 +33,7 @@ class ParentAdmin(admin.ModelAdmin):
         queryset = self.model.objects.filter(recruit=request.user)
         return queryset
     
-    def has_add_permission(self, request: HttpRequest) -> bool:
-        return True
     
-    def has_view_permission(self, request: HttpRequest, obj) -> bool:
-        return True
-    
-    def has_delete_permission(self, request: HttpRequest, obj) -> bool:
-        return True
-    
-    def has_change_permission(self, request: HttpRequest, obj) -> bool:
-        return True
-    
-    def has_module_permission(self, request: HttpRequest) -> bool:
-        return True
 
 
 @admin.register(Brother)
@@ -74,21 +61,7 @@ class BrotherAdmin(admin.ModelAdmin):
         queryset = self.model.objects.filter(recruit=request.user)
         return queryset
     
-    def has_add_permission(self, request: HttpRequest) -> bool:
-        return True
     
-    def has_view_permission(self, request: HttpRequest, obj) -> bool:
-        return True
-    
-    def has_delete_permission(self, request: HttpRequest, obj) -> bool:
-        return True
-    
-    def has_change_permission(self, request: HttpRequest, obj) -> bool:
-        return True
-    
-    def has_module_permission(self, request: HttpRequest) -> bool:
-        return True
-
 @admin.register(Relative)
 class RelativeAdmin(admin.ModelAdmin):
     list_display=(
@@ -125,17 +98,4 @@ class RelativeAdmin(admin.ModelAdmin):
         queryset = self.model.objects.filter(recruit=request.user)
         return queryset
     
-    def has_add_permission(self, request: HttpRequest) -> bool:
-        return True
     
-    def has_view_permission(self, request: HttpRequest, obj) -> bool:
-        return True
-    
-    def has_delete_permission(self, request: HttpRequest, obj) -> bool:
-        return True
-    
-    def has_change_permission(self, request: HttpRequest, obj) -> bool:
-        return True
-    
-    def has_module_permission(self, request: HttpRequest) -> bool:
-        return True
