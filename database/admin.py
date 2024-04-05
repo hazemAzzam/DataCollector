@@ -36,13 +36,13 @@ class ParentAdmin(admin.ModelAdmin):
     def has_add_permission(self, request: HttpRequest) -> bool:
         return True
     
-    def has_view_permission(self, request: HttpRequest) -> bool:
+    def has_view_permission(self, request: HttpRequest, obj) -> bool:
         return True
     
-    def has_delete_permission(self, request: HttpRequest) -> bool:
+    def has_delete_permission(self, request: HttpRequest, obj) -> bool:
         return True
     
-    def has_change_permission(self, request: HttpRequest) -> bool:
+    def has_change_permission(self, request: HttpRequest, obj) -> bool:
         return True
     
     def has_module_permission(self, request: HttpRequest) -> bool:
@@ -77,13 +77,13 @@ class BrotherAdmin(admin.ModelAdmin):
     def has_add_permission(self, request: HttpRequest) -> bool:
         return True
     
-    def has_view_permission(self, request: HttpRequest) -> bool:
+    def has_view_permission(self, request: HttpRequest, obj) -> bool:
         return True
     
-    def has_delete_permission(self, request: HttpRequest) -> bool:
+    def has_delete_permission(self, request: HttpRequest, obj) -> bool:
         return True
     
-    def has_change_permission(self, request: HttpRequest) -> bool:
+    def has_change_permission(self, request: HttpRequest, obj) -> bool:
         return True
     
     def has_module_permission(self, request: HttpRequest) -> bool:
@@ -128,13 +128,13 @@ class RelativeAdmin(admin.ModelAdmin):
     def has_add_permission(self, request: HttpRequest) -> bool:
         return True
     
-    def has_view_permission(self, request: HttpRequest) -> bool:
+    def has_view_permission(self, request: HttpRequest, obj) -> bool:
         return True
     
-    def has_delete_permission(self, request: HttpRequest) -> bool:
+    def has_delete_permission(self, request: HttpRequest, obj) -> bool:
         return True
     
-    def has_change_permission(self, request: HttpRequest) -> bool:
+    def has_change_permission(self, request: HttpRequest, obj) -> bool:
         return True
     
     def has_module_permission(self, request: HttpRequest) -> bool:
