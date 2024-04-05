@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+import decouple
+import logging
+
+config = decouple.AutoConfig('')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +30,7 @@ SECRET_KEY = 'django-insecure-vtf(+b)m@dgf+%&8qp5qufc%s$(i(fhsi%*_r^or-e&z%u22^3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
  
 # Application definition
@@ -77,8 +82,13 @@ WSGI_APPLICATION = 'DataCollector.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+          'ENGINE': config('DATABASE_ENGINE',        cast=str),
+            'NAME': config('DATABASE_NAME',          cast=str),
+            'USER': config('DATABASE_USER',          cast=str),
+        'PASSWORD': config('DATABASE_PASSWORD',      cast=str),
+            'HOST': config("DATABASE_HOST",          cast=str),
+            'PORT': config("DATABASE_PORT",          cast=str),
+            'POOL_SIZE': 10,
     }
 }
 
