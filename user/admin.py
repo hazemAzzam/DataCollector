@@ -41,3 +41,13 @@ class RecruitAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request: HttpRequest) -> bool:
         return request.user.is_superuser
+    
+    def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
+        data = request.POST.copy() 
+
+        password = data.pop('password', None)
+
+        if not change:
+            obj.set_password(password[0])
+
+        super().save_model(request, obj, form, change)
