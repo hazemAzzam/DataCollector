@@ -4,20 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-# Create your models here.
-class Recruit(models.Model):
-    name = models.CharField(default="", max_length=255, blank=True)
-    education = models.TextField(null=True, blank=True)
-    date_of_birth = models.DateField(null=True, blank=True)
-    birth_location = models.CharField(default="", max_length=255, blank=True)
-    marital_status = models.CharField(default="", max_length=255, blank=True)
-    number_of_children = models.PositiveIntegerField()
-    residence = models.TextField(null=True, blank=True)
-    triple_digit = models.CharField(default="", max_length=22, blank=True)
-    mobile_number = models.CharField(default="", max_length=255, blank=True)        
-
-    def __str__(self):
-        return f"{self.name}"
+from user.models import Recruit
 
 class Parent(models.Model):
     recruit = models.ForeignKey(Recruit, on_delete=models.CASCADE, related_name="parents")
@@ -79,7 +66,9 @@ class Relative(models.Model):
     def age(self):
         if self.date_of_birth:
             today = date.today()
-            age = today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
+            age = today.year - self.date_of_birth.year - (
+                (today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day)
+            )
             return age
         return None  
     
