@@ -18,6 +18,7 @@ class RecruitAdmin(admin.ModelAdmin):
             'fields': (
                 'code',
                 'password',
+                'is_staff',
             )
         }),
         ('Personal Information', {
