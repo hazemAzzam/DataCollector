@@ -19,16 +19,18 @@ class RecruitAdmin(admin.ModelAdmin):
                 'code',
                 'password',
                 'is_staff',
-                'user_permissions',
             )
         }),
         ('Personal Information', {
             'fields': (
-                ('name', 'education'),
-                ('date_of_birth', 'birth_location'),
-                ('marital_status', 'number_of_children'),
-                ('residence', 'triple_digit'),
-                ('mobile_number')
+                ('national_number'),
+                ('rank', 'name', 'arm'),
+                ('date_of_birth', 'birth_location', 'blood_type', 'religion'),
+                ('unit', 'current_job', 'college'),
+                ('residence', 'home_phone'),
+                ('email_address', 'mobile_number'),
+                ('marital_status', 'number_of_current_spouses', 'number_of_children', 'men', 'women'),
+                ('spouse_date', "number_of_past_spouses", "date_of_break_up"),
             )
         }),
     )

@@ -2,15 +2,15 @@
 
 :root {
   --base-color: #08252F;
-  --font-size: 13px;
+  --font-size: 8px;
 }
 
 * {
   margin: 0px;
   padding: 0px;
-  font-size: var(--font-size);
   font-family: 'Rubik', sans-serif;
 }
+
 html {
   height: 100%;
   width: 100%;
@@ -40,6 +40,8 @@ body table {
   border-spacing: 2px;
   border-collapse: collapse;
   margin-bottom: 10px;
+  font-size: var(--font-size);
+
 }
 body table caption {
   margin-bottom: 5px;

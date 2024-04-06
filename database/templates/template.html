@@ -9,6 +9,45 @@
 </head>
 <body>
   <div class="page">
+
+    <div class="top" style="display: flex; justify-content: space-between; font-size: 10px;">
+      <div class="right" style="text-align: center;">
+        <p>وزارة الدفاع</p>
+        <p>إدارة شئون ضباط القوات المسلحة</p>
+        <p>فرع الملفات</p>
+      </div>
+      <div class="center" style="text-align: center;">
+        <p>سري</p>
+        <p style="font-size: 15px; font-weight: 800;">بيانات عن ضابط</p>
+      </div>
+      <div class="left" style="text-align: center;">
+        <p>النموذج رقم 121 ش ض</p>
+        <table>
+          <tr>
+            <th>الاقدمية</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>ت. الشخصية</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>الدفعة</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>الرقم القومي</th>
+            <td>{{ recruit.national_number }}</td>
+          </tr>
+          <tr>
+            <th>تاريخ التخرج</th>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+
     <title>
       وثيقه تعارف طالب احتياط
     </title>
@@ -19,65 +58,128 @@
           </div>
         </caption>
         <tr>
+          <th>الرتبة</th>
+          <td>{{ recruit.rank }}</td>
+
           <th>الاسم</th>
           <td>{{ recruit.name }}</td>
           
-          <th>المؤهل الدراسي</th>
-          <td>{{ recruit.education }}</td>
+          <th>السلاح</th>
+          <td>{{ recruit.arm }}</td>
       </tr>
       <tr>
         <th>تاريخ الميلاد</th>
         <td>{{ recruit.date_of_birth|date:"Y-m-d" }}</td>
         
-        <th>جهة الميلاد</th>
+        <th>محل الميلاد</th>
         <td>{{ recruit.birth_location }}</td>
+
+        <th>فصيلة الدم</th>
+        <td>{{ recruit.blood_type }}</td>
+
+        <th>الديانة</th>
+        <td>{{ recruit.religion }}</td>
+      </tr>
+      <tr>
+        <th>الوحدة الحالية</th>
+        <td>{{ recruit.unit }}</td>
+
+        <th>الوظيفة الحالية</th>
+        <td>{{ recruit.current_job }}</td>
+
+        <th>الكلية / المعهد</th>
+        <td>{{ recruit.college }}</td>
+      </tr>
+      <tr>
+        <th>محل الاقامة تفصيليا</th>
+        <td>{{ recruit.residence }}</td>
+
+        <th>ت. المنزل</th>
+        <td>{{ recruit.home_phone }}</td>
+      </tr>
+      <tr>
+        <th>البريد الالكتروني</th>
+        <td>{{ recruit.email_address }}</td>
+
+        <th>التليفون المحمول</th>
+        <td>{{ recruit.mobile_number }}</td>
       </tr>
       <tr>
         <th>الحاله الاجتماعيه</th>
         <td>{{ recruit.marital_status }}</td>
         
-        <th>رقم التليفون</th>
-        <td>{{ recruit.mobile_number }}</td>
+        <th>عدد الزوجات الحاليين</th>
+        <td>{{ recruit.number_of_current_spouses }}</td>
+
+        <th>عدد الابناء</th>
+        <td>{{ recruit.number_of_children }}</td>
+
+        <th>ذكور</th>
+        <td>{{ recruit.men }}</td>
+
+        <th>اناث</th>
+        <td>{{ recruit.women }}</td>
       </tr>
       <tr>
-        <th>محل الاقامه</th>
-        <td>{{ recruit.residence }}</td>
+        <th>تاريخ الزواج</th>
+        <td>{{ recruit.date_of_spouse }}</td>
         
-        <th>الرقم الثلاثي</th>
-        <td style="direction: ltr; text-align:right;">{{ recruit.triple_digit }}</td>
+        <th>عدد الزيجات السابقة</th>
+        <td>{{ recruit.number_of_past_spouses }}</td>
+
+        <th>تاريخ الانفصال</th>
+        <td>{{ recruit. }}</td>
       </tr>
     </table>
-    
+
     <table class="cc">
       <caption>
         <div class="title">
-          بيانات الوالدين
+          بيانات اسرة الضابط والافراد الذين يعولهم
         </div>
       </caption>
       <tr>
-        <th rowspan="2">البيان</th>
-        <th rowspan="2">الاسم رباعي</th>
-        <th rowspan="2">الديانه</th>
-        <th rowspan="2">الجنسيه</th>
-        <th rowspan="2">الوظيفه</th>
-        <th rowspan="1" colspan="3">تاريخ الميلاد</th>
-        <th rowspan="2">محل الاقامه</th>
+        <th>الاسم</th>
+        <th>القرابة</th>
+        <th>الجنسية</th>
+        <th>تاريخ الميلاد</th>
+        <th>الرقم القومي</th>
+        <th>ملاحظات</th>
       </tr>
+      
+      {% for parent in recruit.supports.all %}
       <tr>
-        <th>يوم</th>
-        <th>شهر</th>
-        <th>سنه</th>
+          <td>{{ parent.name }}</td>
+          <td>{{ parent.relate }}</td>
+          <td>{{ parent.nationality }}</td>
+          <td>{{ parent.date_of_birth|date:"Y-m-d" }}</td>
+          <td>{{ parent.national_number }}</td>
+          <td>{{ parent.notes }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <table class="cc">
+      <caption>
+        <div class="title">
+          بيانات عائلة الضابط
+        </div>
+      </caption>
+      <tr>
+        <th>الاسم</th>
+        <th>الجنسيه</th>
+        <th>المؤهل</th>
+        <th>الوظيفه</th>
+        <th>ضابط ق.م</th>
+        <th>محل الاقامه</th>
       </tr>
       {% for parent in recruit.parents.all %}
       <tr>
-          <th>{{ parent.relate }}</th>
           <td>{{ parent.name }}</td>
-          <td>{{ parent.religion }}</td>
           <td>{{ parent.nationality }}</td>
+          <td>{{ parent.qualification }}</td>
           <td>{{ parent.job }}</td>
-          <td>{{ parent.date_of_birth.day }}</td>
-          <td>{{ parent.date_of_birth.month }}</td>
-          <td>{{ parent.date_of_birth.year }}</td>
+          <td>{{ parent.military_officer }}</td>
           <td>{{ parent.residence }}</td>
       </tr>
       {% endfor %}
@@ -90,27 +192,27 @@
         </div>
       </caption>
       <tr>
-        <th rowspan=2>الاسم رباعي</th>
-        <th rowspan=1 colspan=3>تاريخ الميلاد</th>
-        <th rowspan=2>الوظيفه</th>
-        <th rowspan=2>اسم الزوج او الزوجه رباعي</th>
-        <th rowspan=2>الوظيفه</th>
-        <th rowspan=2>محل الاقامه تفصيليا</th>
+        <th>الاسم</th>
+        <th>القرابة</th>
+        <th>المؤهل</th>
+        <th>الوظيفة</th>
+        <th>ضابط ق.م</th>
+        <th>اسم الزوج او الزوجه</th>
+        <th>المؤهل</th>
+        <th>الوظيفه</th>
+        <th>محل الاقامه</th>
       </tr>
-      <tr>
-        <th>اليوم</th>
-        <th>الشهر</th>
-        <th>السنه</th>
-      </tr>
+      
       {% for brother in recruit.brothers.all %}
       <tr>
         <td>{{ brother.name }}</td>
-        <td>{{ brother.date_of_birth.day }}</td>
-        <td>{{ brother.date_of_birth.month }}</td>
-        <td>{{ brother.date_of_birth.year }}</td>
+        <td>{{ brother.relate }}</td>
+        <td>{{ brother.qualification }}</td>
         <td>{{ brother.job }}</td>
-        <td>{{ brother.wife_name }}</td>
-        <td>{{ brother.wife_job }}</td>
+        <td>{{ brother.military_officer }}</td>
+        <td>{{ brother.spouse_name }}</td>
+        <td>{{ brother.spouse_qualification }}</td>
+        <td>{{ brother.spouse_job }}</td>
         <td>{{ brother.residence }}</td>
       </tr>
       {% endfor %}
