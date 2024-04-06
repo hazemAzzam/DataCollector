@@ -28,6 +28,7 @@ media/
 
 # Local development settings
 local_settings.py
+settings.py
 
 # IDE files
 .idea/
