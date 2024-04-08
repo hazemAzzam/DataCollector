@@ -54,7 +54,7 @@
     <table>
         <caption>
           <div class="title">
-            البيانات الشخصيه
+            البيانات الشخصية:
           </div>
         </caption>
         <tr>
@@ -62,14 +62,14 @@
           <td>{{ recruit.rank }}</td>
 
           <th>الاسم</th>
-          <td>{{ recruit.name }}</td>
+          <td colspan="4">{{ recruit.name }}</td>
           
-          <th>السلاح</th>
-          <td>{{ recruit.arm }}</td>
+          <th colspan="2">السلاح</th>
+          <td colspan="2">{{ recruit.arm }}</td>
       </tr>
       <tr>
         <th>تاريخ الميلاد</th>
-        <td>{{ recruit.date_of_birth|date:"Y-m-d" }}</td>
+        <td colspan="2">{{ recruit.date_of_birth|date:"Y-m-d" }}</td>
         
         <th>محل الميلاد</th>
         <td>{{ recruit.birth_location }}</td>
@@ -77,32 +77,32 @@
         <th>فصيلة الدم</th>
         <td>{{ recruit.blood_type }}</td>
 
-        <th>الديانة</th>
-        <td>{{ recruit.religion }}</td>
+        <th colspan="2">الديانة</th>
+        <td colspan="2">{{ recruit.religion }}</td>
       </tr>
       <tr>
         <th>الوحدة الحالية</th>
-        <td>{{ recruit.unit }}</td>
+        <td colspan="2">{{ recruit.unit }}</td>
 
         <th>الوظيفة الحالية</th>
-        <td>{{ recruit.current_job }}</td>
+        <td colspan="3">{{ recruit.current_job }}</td>
 
-        <th>الكلية / المعهد</th>
-        <td>{{ recruit.college }}</td>
+        <th colspan="2">الكلية / المعهد</th>
+        <td colspan="2">{{ recruit.college }}</td>
       </tr>
       <tr>
         <th>محل الاقامة تفصيليا</th>
-        <td>{{ recruit.residence }}</td>
+        <td colspan="4">{{ recruit.residence }}</td>
 
-        <th>ت. المنزل</th>
-        <td>{{ recruit.home_phone }}</td>
+        <th colspan="2">ت. المنزل</th>
+        <td colspan="2">{{ recruit.home_phone }}</td>
       </tr>
       <tr>
         <th>البريد الالكتروني</th>
-        <td>{{ recruit.email_address }}</td>
+        <td colspan="3">{{ recruit.email_address }}</td>
 
         <th>التليفون المحمول</th>
-        <td>{{ recruit.mobile_number }}</td>
+        <td colspan="2">{{ recruit.mobile_number }}</td>
       </tr>
       <tr>
         <th>الحاله الاجتماعيه</th>
@@ -112,7 +112,7 @@
         <td>{{ recruit.number_of_current_spouses }}</td>
 
         <th>عدد الابناء</th>
-        <td>{{ recruit.number_of_children }}</td>
+        <td colspan="2">{{ recruit.number_of_children }}</td>
 
         <th>ذكور</th>
         <td>{{ recruit.men }}</td>
@@ -128,14 +128,14 @@
         <td>{{ recruit.number_of_past_spouses }}</td>
 
         <th>تاريخ الانفصال</th>
-        <td>{{ recruit. }}</td>
+        <td colspan="2">{{ recruit.date_of_break_up }}</td>
       </tr>
     </table>
 
     <table class="cc">
       <caption>
         <div class="title">
-          بيانات اسرة الضابط والافراد الذين يعولهم
+          بيانات اسرة الضابط والافراد الذين يعولهم:
         </div>
       </caption>
       <tr>
@@ -162,7 +162,7 @@
     <table class="cc">
       <caption>
         <div class="title">
-          بيانات عائلة الضابط
+          بيانات عائلة الضابط:
         </div>
       </caption>
       <tr>
@@ -188,7 +188,7 @@
     <table class="cc">
       <caption>
         <div class="title">
-          بيانات الاخوه والاخوات
+          بيانات الاخوه والاخوات:
         </div>
       </caption>
       <tr>
