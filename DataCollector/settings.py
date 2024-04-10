@@ -143,6 +143,8 @@ ADMIN_ORDERING = (
         'Parent',
         'Brother',
         'Relative',
+        'Current_Wife_Data',
+        'Wife_Borther',
     )),
     ('user', (
         'Recruit',

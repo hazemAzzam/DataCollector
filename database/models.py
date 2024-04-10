@@ -17,9 +17,9 @@ class Parent(models.Model):
     name = models.CharField(default="", max_length=255, blank=True)
     nationality = models.CharField(default="", max_length=255, blank=True)
     qualification = models.CharField(verbose_name=_("Qualification"), max_length=255, blank=True, default="")
-    job = models.CharField(verbose_name=_("Job"), max_length=255, null=True, blank=True)
+    job = models.CharField(verbose_name=_("Job"), max_length=255, default="", blank=True)
     military_officer = models.BooleanField(default=False)
-    residence = models.CharField(verbose_name=_("Residence"), max_length=255, null=True, blank=True)  
+    residence = models.CharField(verbose_name=_("Residence"), max_length=255, default="", blank=True)  
 
     def __str__(self):
         return f"{self.name}"
@@ -29,21 +29,21 @@ class Supports(models.Model):
     name = models.CharField(verbose_name=_("Name"), max_length=255, default="", blank=True)
     relate = models.CharField(verbose_name=_("Relate"), max_length=255, default="", blank=True)
     nationality = models.CharField(verbose_name=_("nationality"), default="", max_length=255, blank=True)
-    date_of_birth=models.DateField(verbose_name=_("Date of Birth"), null=True, blank=True)
-    national_number = models.CharField(verbose_name=_("National Number"), null=True, blank=True, max_length=255)
-    notes = models.CharField(verbose_name=_("Notes"), null=True, blank=True, max_length=255)
+    date_of_birth=models.DateField(verbose_name=_("Date of Birth"), blank=True, null=True)
+    national_number = models.CharField(verbose_name=_("National Number"), default="", blank=True, max_length=255)
+    notes = models.CharField(verbose_name=_("Notes"), default="", blank=True, max_length=255)
 
 class Brother(models.Model):
     recruit = models.ForeignKey(Recruit, on_delete=models.CASCADE, related_name="brothers")
     name = models.CharField(default="", max_length=255, blank=True)
     relate = models.CharField(verbose_name=_("Relate"), max_length=255, default="", blank=True)
     qualification = models.CharField(verbose_name=_("Qualification"), max_length=255, blank=True, default="")
-    job = models.CharField(verbose_name=_("Residence"), max_length=255, null=True, blank=True)
+    job = models.CharField(verbose_name=_("Job"), max_length=255, default="", blank=True)
     military_officer = models.BooleanField(default=False)
     spouse_name = models.CharField(verbose_name=_("Spouse Name"), max_length=255, default="", blank=True)
     spouse_qualification = models.CharField(verbose_name=_("Qualification"), max_length=255, blank=True, default="")
     spouse_job = models.CharField(verbose_name=_("Job"), max_length=255, blank=True, default="")
-    residence = models.CharField(verbose_name=_("Residence"), max_length=255, null=True, blank=True)
+    residence = models.CharField(verbose_name=_("Residence"), max_length=255, default="", blank=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -65,11 +65,11 @@ class Relative(models.Model):
         ('خال', _('خال')),
     ], max_length=255, blank=True)
     name = models.CharField(default="", max_length=255, blank=True)
-    date_of_birth = models.DateField(null=True, blank=True)
-    job = models.TextField(null=True, blank=True)
-    wife_name = models.CharField(default="", max_length=255, blank=True)
-    wife_job = models.CharField(default="", max_length=255, blank=True)
-    residence = models.CharField(verbose_name=_("Residence"), max_length=255, null=True, blank=True)
+    qualification = models.CharField(verbose_name=_("Qualification"), max_length=255, blank=True, default="")
+    job = models.CharField(verbose_name=_("Job"), max_length=255, default="", blank=True)
+    spouse_name = models.CharField(verbose_name=_("Spouse Name"), default="", max_length=255, blank=True)
+    spouse_job = models.CharField(verbose_name=_("Spouse Job"), default="", max_length=255, blank=True)
+    residence = models.CharField(verbose_name=_("Residence"), max_length=255, default="", blank=True)
 
     objects=RelativeManager.from_queryset(queryset_class=RelativeQuerySet)()
 
@@ -85,3 +85,47 @@ class Relative(models.Model):
     
     def __str__(self):
         return f"{self.name}"
+    
+
+class Current_Wife_QuerySet(models.QuerySet):
+    def male_count(self):
+        return self.filter(gender='male').count()
+    
+    def female_count(self):
+        return self.filter(gender='female').count()
+
+class Current_Wife_Data(models.Model):
+    recruit = models.ForeignKey(Recruit, on_delete=models.CASCADE, related_name="current_wife_data")
+    statement = models.CharField(verbose_name=_("Statement"), max_length=255, choices=[
+        ('الزوجة', _("الزوجة")),
+        ('والدها', _('والدها')),
+        ('والدتها', _("والدتها")),
+    ])
+    name = models.CharField(verbose_name=_("Name"), max_length=255, default="", blank=True)
+    nationality = models.CharField(max_length=255, blank=True, default="مصري")
+    religion = models.CharField(verbose_name=_("Religion"), default="مسلم", max_length=255)
+    qualification = models.CharField(verbose_name=_("Qualification"), max_length=255, default="", blank=True)
+    job = models.CharField(verbose_name=_("Job"), max_length=255, blank=True, default="")
+    residence = models.CharField(verbose_name=_("Residence"), max_length=255, blank=True, default="")
+
+class Wife_Manager(models.Manager):
+    pass
+
+class Wife_Borther(models.Model):
+    recruit = models.ForeignKey(Recruit, on_delete=models.CASCADE, related_name="wife_brothers")
+    name = models.CharField(verbose_name=_("Name"), max_length=255, default="", blank=True)
+    gender = models.CharField(verbose_name=_("Gender"), max_length=255, choices=[
+        ('male', _("Male")),
+        ('female', _("Female")),
+    ])
+    qualification = models.CharField(verbose_name=_("Qualification"), max_length=255, default="", blank=True)
+    job = models.CharField(verbose_name=_("Job"), max_length=255, blank=True, default="")
+    spouse_name = models.CharField(verbose_name=_("Spouse Name"), default="", max_length=255, blank=True)
+    spouse_job = models.CharField(verbose_name=_("Spouse Job"), default="", max_length=255, blank=True)
+    residence = models.CharField(verbose_name=_("Residence"), max_length=255, default="", blank=True)
+
+    objects = Wife_Manager.from_queryset(queryset_class=Current_Wife_QuerySet)()
+
+
+
+

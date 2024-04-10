@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,18 +10,18 @@
 <body>
   <div class="page">
 
-    <div class="top" style="display: flex; justify-content: space-between; font-size: 10px;">
+    <div class="top" style="display: flex; justify-content: space-between; font-size: 15px;">
       <div class="right" style="text-align: center;">
         <p>وزارة الدفاع</p>
         <p>إدارة شئون ضباط القوات المسلحة</p>
-        <p>فرع الملفات</p>
+        <p style="border-bottom: 1px solid black; display: inline;">فرع الملفات</p>
       </div>
-      <div class="center" style="text-align: center;">
-        <p>سري</p>
-        <p style="font-size: 15px; font-weight: 800;">بيانات عن ضابط</p>
+      <div class="center" style="text-align: center; align-items: center; ">
+        <p style="font-size: 15px; margin-bottom: 50px; border-bottom: 2px solid black; display: inline;">سري</p>
+        <p style="font-size: 25px; font-weight: 800; border-bottom: 3px solid black; display: block;">بيانات عن ضابط</p>
       </div>
-      <div class="left" style="text-align: center;">
-        <p>النموذج رقم 121 ش ض</p>
+      <div class="left" style="text-align: center; font-stretch:extra-expanded;">
+        <p style="margin-bottom: 10px; font-size: 15px; border-bottom: 1px solid black; display: inline;">النموذج رقم 121 ش ض</p>
         <table>
           <tr>
             <th>الاقدمية</th>
@@ -69,7 +69,7 @@
       </tr>
       <tr>
         <th>تاريخ الميلاد</th>
-        <td colspan="2">{{ recruit.date_of_birth|date:"Y-m-d" }}</td>
+        <td colspan="1">{{ recruit.date_of_birth|date:"Y-m-d" }}</td>
         
         <th>محل الميلاد</th>
         <td>{{ recruit.birth_location }}</td>
@@ -77,7 +77,7 @@
         <th>فصيلة الدم</th>
         <td>{{ recruit.blood_type }}</td>
 
-        <th colspan="2">الديانة</th>
+        <th colspan="3">الديانة</th>
         <td colspan="2">{{ recruit.religion }}</td>
       </tr>
       <tr>
@@ -135,8 +135,9 @@
     <table class="cc">
       <caption>
         <div class="title">
-          بيانات اسرة الضابط والافراد الذين يعولهم:
+          بيانات اسرة الضابط والافراد الذين يعولهم: 
         </div>
+        <span style="font-size: calc(var(--font-size) + 3px);">(فقط في حالة وجود أبناء من زوجة أخرى يذكر اسم الزوجة في الملاحظات)</span>
       </caption>
       <tr>
         <th>الاسم</th>
@@ -147,16 +148,22 @@
         <th>ملاحظات</th>
       </tr>
       
-      {% for parent in recruit.supports.all %}
-      <tr>
-          <td>{{ parent.name }}</td>
-          <td>{{ parent.relate }}</td>
-          <td>{{ parent.nationality }}</td>
-          <td>{{ parent.date_of_birth|date:"Y-m-d" }}</td>
-          <td>{{ parent.national_number }}</td>
-          <td>{{ parent.notes }}</td>
-      </tr>
-      {% endfor %}
+      {% if recruit.supports.all %}
+    {% for parent in recruit.supports.all %}
+        <tr>
+            <td>{{ parent.name }}</td>
+            <td>{{ parent.relate }}</td>
+            <td>{{ parent.nationality }}</td>
+            <td>{{ parent.date_of_birth|date:"Y-m-d" }}</td>
+            <td>{{ parent.national_number }}</td>
+            <td>{{ parent.notes }}</td>
+        </tr>
+    {% endfor %}
+{% else %}
+    <tr>
+        <td colspan="6">لا يوجد</td>
+    </tr>
+{% endif %}
     </table>
 
     <table class="cc">
@@ -166,6 +173,7 @@
         </div>
       </caption>
       <tr>
+        <th>درجة القرابة</th>
         <th>الاسم</th>
         <th>الجنسيه</th>
         <th>المؤهل</th>
@@ -175,11 +183,14 @@
       </tr>
       {% for parent in recruit.parents.all %}
       <tr>
+          <td>{{ parent.relate }}</td>
           <td>{{ parent.name }}</td>
           <td>{{ parent.nationality }}</td>
           <td>{{ parent.qualification }}</td>
           <td>{{ parent.job }}</td>
-          <td>{{ parent.military_officer }}</td>
+          <td>
+            <input type="checkbox" name="" id="" {% if parent.military_officer %}checked{% endif %}>
+          </td>
           <td>{{ parent.residence }}</td>
       </tr>
       {% endfor %}
@@ -188,7 +199,7 @@
     <table class="cc">
       <caption>
         <div class="title">
-          بيانات الاخوه والاخوات:
+          بيانات اخوة / أخوات الضابط:
         </div>
       </caption>
       <tr>
@@ -209,46 +220,115 @@
         <td>{{ brother.relate }}</td>
         <td>{{ brother.qualification }}</td>
         <td>{{ brother.job }}</td>
-        <td>{{ brother.military_officer }}</td>
+        <td>
+          <input type="checkbox" name="" id="" {% if brother.military_officer %}checked{% endif %}>
+        </td>
+        {% if borther.spouse_name %}
         <td>{{ brother.spouse_name }}</td>
         <td>{{ brother.spouse_qualification }}</td>
         <td>{{ brother.spouse_job }}</td>
         <td>{{ brother.residence }}</td>
+        {% else %}
+        <td colspan="3">اعزب</td>
+        {% endif %}
       </tr>
       {% endfor %}
     </table>
+
+    <div>
+      <span style="border-bottom: 1px solid black; font-size: 8px;">
+        ادارة شئون ضباط القوات المسلحة 2021/10/121
+      </span>
+    </div>
   </div>
   <div class="page">
     <table class="cc">
+      <caption>
+        <div class="title">
+          بيانات عائلة الزوجة الحالية:
+        </div>
+      </caption>
+      <tr>
+        <th>البيان</th>
+        <th>الإسم</th>
+        <th>الجنسية</th>
+        <th>الديانة</th>
+        <th>المؤهل</th>
+        <th>الوظيفة</th>
+        <th>محل الإقامة تفصيليا</th>
+      </tr>
+      {% if recruit.current_wife_data.all %}
+    {% for obj in recruit.current_wife_data.all %}
+        <tr>
+            <td>{{ obj.statement }}</td>
+            <td>{{ obj.name }}</td>
+            <td>{{ obj.nationality }}</td>
+            <td>{{ obj.religion }}</td>
+            <td>{{ obj.qualification }}</td>
+            <td>{{ obj.job }}</td>
+            <td>{{ obj.residence }}</td>
+        </tr>
+    {% endfor %}
+{% else %}
+    <tr>
+        <td colspan="7">لا يوجد</td>
+    </tr>
+{% endif %}
+
+    </table>
+    <table class="cc">
+      <caption>
+        <div class="title">
+          أخوة / أخوات الزوجة الحالية:
+        </div>
+      </caption>
+      <tr>
+        <th>الإسم</th>
+        <th>المؤهل</th>
+        <th>الوظيفة</th>
+        <th>إسم الزوج / الزوجة</th>
+        <th>الوظيفة</th>
+        <th>محل الإقامة</th>
+      </tr>
+      {% if recruit.wife_brother.all %}
+    {% for obj in recruit.wife_brother.all %}
+        <tr>
+            <td>{{ obj.name }}</td>
+            <td>{{ obj.qualification }}</td>
+            <td>{{ obj.job }}</td>
+            <td>{{ obj.spouse_name }}</td>
+            <td>{{ obj.spouse_job }}</td>
+            <td>{{ obj.residence }}</td>
+        </tr>
+    {% endfor %}
+{% else %}
+    <tr>
+        <td colspan="6">لا يوجد</td>
+    </tr>
+{% endif %}
+
+    </table>
+    <table class="cc">
         <caption>
           <div class="title">
-            بيانات الاعمام والعمات
+             الاعمام والعمات:
           </div>
         </caption>
         <tr>
-            <th rowspan="2">الاسم</th>
-            <th rowspan="1" colspan="3">تاريخ الميلاد</th>
-            <th rowspan="2">السن</th>
-            <th rowspan="2">الوظيفه</th>
-            <th rowspan="2">اسم الزوج او الزوجة رباعي</th>
-            <th rowspan="2">الوظيفه</th>
-            <th rowspan="2">محل الاقامه</th>
-        </tr>
-        <tr>
-            <th>اليوم</th>
-            <th>الشهر</th>
-            <th>السنه</th>
+            <th>الاسم</th>
+            <th>المؤهل</th>
+            <th>الوظيفه</th>
+            <th>اسم الزوج او الزوجة </th>
+            <th>الوظيفه</th>
+            <th>محل الاقامه</th>
         </tr>
         {% for uncle in recruit.relatives.all.father_relates %}
         <tr>
             <td>{{ uncle.name }}</td>
-            <td>{{ uncle.date_of_birth.day }}</td>
-            <td>{{ uncle.date_of_birth.month }}</td>
-            <td>{{ uncle.date_of_birth.year }}</td>
-            <td>{{ uncle.age }}</td>
+            <td>{{ uncle.qualification }}</td>
             <td>{{ uncle.job }}</td>
-            <td>{{ uncle.wife_name }}</td>
-            <td>{{ uncle.wife_job }}</td>
+            <td>{{ uncle.spouse_name }}</td>
+            <td>{{ uncle.spouse_job }}</td>
             <td>{{ uncle.residence }}</td>
         </tr>
         {% endfor %}
@@ -257,41 +337,63 @@
     <table class="cc"> 
       <caption>
         <div class="title">
-          بيانات الاخوال والخالات
+         الاخوال والخالات:
         </div>
       </caption>
       <tr>
-          <th rowspan="2">الاسم</th>
-          <th rowspan="1" colspan="3">تاريخ الميلاد</th>
-          <th rowspan="2">السن</th>
-          <th rowspan="2">الوظيفه</th>
-          <th rowspan="2">اسم الزوج او الزوجة رباعي</th>
-          <th rowspan="2">الوظيفه</th>
-          <th rowspan="2">محل الاقامه</th>
-      </tr>
-      <tr>
-          <th>اليوم</th>
-          <th>الشهر</th>
-          <th>السنه</th>
-      </tr>
-      {% for uncle in recruit.relatives.all.mother_relates %}
-      <tr>
-          <td>{{ uncle.name }}</td>
-          <td>{{ uncle.date_of_birth.day }}</td>
-          <td>{{ uncle.date_of_birth.month }}</td>
-          <td>{{ uncle.date_of_birth.year }}</td>
-          <td>{{ uncle.age }}</td>
-          <td>{{ uncle.job }}</td>
-          <td>{{ uncle.wife_name }}</td>
-          <td>{{ uncle.wife_job }}</td>
-          <td>{{ uncle.residence }}</td>
-      </tr>
-      {% endfor %}
+        <th>الاسم</th>
+        <th>المؤهل</th>
+        <th>الوظيفه</th>
+        <th>اسم الزوج او الزوجة </th>
+        <th>الوظيفه</th>
+        <th>محل الاقامه</th>
+    </tr>
+  {% for uncle in recruit.relatives.all.mother_relates %}
+  <tr>
+    <td>{{ uncle.name }}</td>
+    <td>{{ uncle.qualification }}</td>
+    <td>{{ uncle.job }}</td>
+    <td>{{ uncle.spouse_name }}</td>
+    <td>{{ uncle.spouse_job }}</td>
+    <td>{{ uncle.residence }}</td>
+</tr>
+{% endfor %}
   </table>
-  <div style="padding: 5px;">
-    اقر انا..............................................................بأن البيانات المدونه بالوثيقه صحيحه وتحت مسؤوليتي. 
-    <br>
-    وإنني قد تنبه علي باتباع التعليمات السابقه
+  <div style="padding: 5px;font-size: calc(var(--font-size) + 5px);">
+    <div style="text-align: center; padding-bottom: 5px; font-weight: 800;">
+      إقرار
+    </div>
+    اقر انا........................./................................................................بصحة المعلومات والبيانات السابقة وتحت مسئوليتي وأتعهد بتحرير نموذج جديد في حال تغيير اي بيان مما سبق خلال شهر من تاريخ التغيير.. 
+    <div style="text-align: center;">
+      وهذا إقرار مني بذلك...
+    </div>
+  </div>
+  <div style="display: flex; justify-content: space-around;">
+    <div style="border: 1px solid black; padding: 5px; font-size: calc(var(--font-size) + 3px); display: flex; flex-direction: column; justify-content: space-between;">
+      <li>البريد الالكتروني غير مخصص لإرسال او أستقبال أي معلومات عسكرية تحمل درجة سرية</li>
+      <li>في حالة تعدد الزوجات يتم تحرير نموذج 121 ش ض منفصل لكل زوجة علي حدة</li>
+      <li>في حالة زيادة عدد الافراد عن عدد الخانات المحددة يتم تحرير نموذج 121 ش ض اضافي</li>
+    </div>
+    <div>
+      <table style="border: 0px; font-size: (var(--font-size) + 3px); text-align: right;">
+        <tr style="border: 0px;">
+          <th style="border: 0px;">التوقيع:</th>
+          <td style="border: 0px;">(...........................................)</td>
+        </tr>
+        <tr style="border: 0px;">
+          <th style="border: 0px;">الرتبة:</th>
+          <td style="border: 0px;"></td>
+        </tr>
+        <tr style="border: 0px;">
+          <th style="border: 0px;">الاسم:</th>
+          <td style="border: 0px;"></td>
+        </tr>
+        <tr style="border: 0px;">
+          <th style="border: 0px;">التاريخ:</th>
+          <td style="border: 0px;"></td>
+        </tr>
+      </table>
+    </div>
   </div>
   </div>
 </body>

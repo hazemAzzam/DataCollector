@@ -94,19 +94,18 @@ class BrotherAdmin(DefaultAdmin):
 class RelativeAdmin(DefaultAdmin):
     list_display=(
         'name',
-        'wife_name',
+        'spouse_name',
         'relate',
-        'date_of_birth',
     )
     fieldsets=(
         ('', {
             'fields': (
                 'relate',
                 'name',
-                'date_of_birth',
+                'qualification',
                 'job',
-                'wife_name',
-                'wife_job',
+                'spouse_name',
+                'spouse_job',
                 'residence'
             )
         }),
@@ -116,8 +115,39 @@ class RelativeAdmin(DefaultAdmin):
     )
     search_fields=(
         'name',
-        'wife_name',
+        'spouse_name',
     )
 
+@admin.register(Current_Wife_Data)
+class Current_Wife_Data_Admin(DefaultAdmin):
+    fieldsets=(
+        ('', {
+            'fields': (
+                'statement',
+                'name',
+                'nationality',
+                'religion',
+                'qualification',
+                'job',
+                'residence'
+            )
+        }),
+    )
+
+@admin.register(Wife_Borther)
+class Wife_Borther_Admin(DefaultAdmin):
+    fieldsets=(
+        ('', {
+            'fields': (
+                'name',
+                'gender',
+                'qualification',
+                'job',
+                'spouse_name',
+                'spouse_job',
+                'residence'
+            )
+        }),
+    )
     
     
